@@ -1,6 +1,7 @@
 import os
 import random
 from PIL import Image
+from .utils import *
 
 def getIds(dir):
     """
@@ -25,9 +26,18 @@ def split_train_val(dataset, valPercent=0.05):
     return {"train": dataset[:-n], "val": dataset[-n:]}
 
 def toCroppedImages(ids, dirImg, suffix, scale):
+    """
+    Generator the returns a cropped image for each image
+    in dirImg identified with an id.
+    :param ids: list of image ids to crop
+    :param dirImg: path to image folder
+    :param suffix: image extension
+    :param scale: scale to crop
+    :return: cropped square of image
+    """
 
     for id in ids:
-        im = resizeAndCrop(Image.open(dir + id + suffix), scale=scale)
+        im = resizeAndCrop(Image.open(dirImg + id + suffix), scale=scale)
         yield getSquare(im)
 
 
