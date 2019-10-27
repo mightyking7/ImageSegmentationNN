@@ -37,7 +37,8 @@ def toCroppedImages(ids, dirImg, suffix, scale):
     """
 
     for id in ids:
-        im = resizeAndCrop(Image.open(dirImg + id + suffix), scale=scale)
+        im = resizeImg(Image.open(dirImg + id + suffix), scale=scale)
+        im = cropImg(im)
         yield getSquare(im)
 
 
