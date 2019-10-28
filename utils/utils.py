@@ -42,7 +42,7 @@ def cropImg(img, height=None):
     Crops image with given height
     :param img: PIL image
     :param height: crop y limit
-    :return:
+    :return: numpy array of image pixels
     """
 
     w = img.size[0]
@@ -55,4 +55,24 @@ def cropImg(img, height=None):
 
     img = img.crop((0, diff // 2, w, h - diff // 2))
     return np.array(img, dtype=np.float32)
+
+def batch(iterable, batchSize):
+    """
+    Generator that returns images from a list
+    :param iterable: list of images
+    :param batchSize: number of images to return at once
+    :return: list of images of length batchSize
+    """
+
+    imgs = []
+
+    for i, img in enumerate(iterable):
+        imgs.append(img)
+
+        if (i + 1 % batchSize) == 0:
+            yield imgs
+            imgs.clear()
+
+    if len(imgs) > 0:
+        yield imgs
 
