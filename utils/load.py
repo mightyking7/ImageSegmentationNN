@@ -11,8 +11,9 @@ def getIds(dir):
     """
     return (i[:-4] for i in os.listdir(dir))
 
-def split_train_val(dataset, valPercent=0.05):
-    """Splits dataset into training images and testing images
+def splitTrainVal(dataset, valPercent=0.05):
+    """
+    Splits dataset into training images and testing images
     with the given valPercent for percentage of testing images.
     
     :arg valPercent: percentage of dataset to set aside for testing
@@ -21,6 +22,7 @@ def split_train_val(dataset, valPercent=0.05):
     dataset = list(dataset)
     length = len(dataset)
     n = int(length * valPercent)
+
     # shuffle dataset for randomness
     random.shuffle(dataset)
     return {"train": dataset[:-n], "val": dataset[-n:]}
