@@ -7,6 +7,7 @@ import torch
 from torch import optim
 import torch.nn as nn
 from utils import *
+from project import UNet
 
 def train(net, args):
 
@@ -111,7 +112,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    net = UNet()
+    net = UNet(3,1)
 
     # train model
     train(net, args)
