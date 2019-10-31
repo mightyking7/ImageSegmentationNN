@@ -7,7 +7,7 @@ import torch
 from torch import optim
 import torch.nn as nn
 from utils import *
-from .UNet import UNet
+from project.UNet import UNet
 
 def train(net, args):
 
