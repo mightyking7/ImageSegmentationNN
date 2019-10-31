@@ -20,12 +20,12 @@ def train(net, args):
 
     iddataset = splitTrainVal(ids, valPercent)
 
-    print(f"Started training:\
-        Epochs: {epochs}\
-        Batch size: {batchSize}\
-        Learning rate: {lr}\
-        Training Size: {len(iddataset['train'])}\
-        Validation Size: {len(iddataset['val'])}")
+    print('''Started training:
+        Epochs: {}
+        Batch size: {}
+        Learning rate: {}
+        Training Size: {}
+        Validation Size: {}'''.format(epochs, batchSize, lr, len(iddataset['train']), len(iddataset['val'])))
 
     N_TRAIN = len(iddataset['train'])
 
