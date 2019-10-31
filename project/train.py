@@ -104,13 +104,13 @@ File called "UNet model" is stored in project dir
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--lr", "-learning_rate", type=float, help="Learning rate", default=1e-4)
-    parser.add_argument("--e","-epochs",  type=int, help="Epochs to train model", default=80)
-    parser.add_argument("--s","-scale", type=float, help="Scale factor for tiles", default=0.5)
-    parser.add_argument("--vp", "-val_percent", type=float, help="Percentage of images to use for validation", default=0.10)
-    parser.add_argument("--bs", "-batch_size", type=int, help="Number of images to train on at a time", default=1)
+    parser.add_argument("--lr", "-learning_rate", dest='lr', type=float, help="Learning rate", default=1e-4)
+    parser.add_argument("--e","-epochs", dest='epochs', type=int, help="Epochs to train model", default=80)
+    parser.add_argument("--s","-scale", dest='scale', type=float, help="Scale factor for tiles", default=0.5)
+    parser.add_argument("--vp", "-val_percent", dest='valPercent', type=float, help="Percentage of images to use for validation", default=0.10)
+    parser.add_argument("--bs", "-batch_size", dest='batchSize', type=int, help="Number of images to train on at a time", default=1)
 
-    args = parser.parse_args()
+    _ , args = parser.parse_args()
 
     net = UNet(3,1)
 
