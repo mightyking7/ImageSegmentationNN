@@ -90,7 +90,7 @@ def train(net, args):
             optimizer.step()
 
         # print average loss over epoch
-        print(f"Epoch finished. Loss: {epochLoss / i}")
+        print(f"Epoch finished. Avg Loss: {epochLoss / batchSize}")
 
         # TODO how to measure accuracy of model ?
 
