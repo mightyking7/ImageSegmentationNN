@@ -1,5 +1,4 @@
-import torch.nn as nn
-import torch.functional as F
+import torch.nn.functional as F
 from .models import *
 
 class UNet(nn.Module):
