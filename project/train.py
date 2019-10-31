@@ -110,7 +110,7 @@ if __name__ == "__main__":
     parser.add_argument("--vp", "-val_percent", dest='valPercent', type=float, help="Percentage of images to use for validation", default=0.10)
     parser.add_argument("--bs", "-batch_size", dest='batchSize', type=int, help="Number of images to train on at a time", default=1)
 
-    _ , args = parser.parse_args()
+    args = parser.parse_args()
 
     net = UNet(3,1)
 
