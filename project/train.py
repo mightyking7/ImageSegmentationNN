@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append('.')
+
 import argparse
 import torch
 from torch import optim
