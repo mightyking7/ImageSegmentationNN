@@ -1,4 +1,4 @@
-from project import UNet
+from project.UNet import UNet
 
 def segment(img):
     """

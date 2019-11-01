@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append('.')
+# sys.path.append('.')
 
 import argparse
 import torch
@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    net = UNet(3,1)
+    net = UNet(3, 1)
 
     # train model
     train(net, args)
