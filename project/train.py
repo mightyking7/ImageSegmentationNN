@@ -1,7 +1,5 @@
 import sys
-
-# sys.path.append('.')
-
+sys.path.append('.')
 import argparse
 import torch
 from torch import optim
