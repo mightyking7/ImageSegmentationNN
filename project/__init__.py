@@ -1,4 +1,4 @@
-import numpy as np
+from project import UNet
 
 def segment(img):
     """
@@ -7,5 +7,7 @@ def segment(img):
     return: a numpy integer array of size (w,h), where the each entry represent the class id
     please refer to data/color_map.json for the id <-> class mapping
     """
-    
-    raise NotImplementedError("segment")
+    net = UNet(3, 1).cuda()
+    segment = net.forward(img.cuda())
+
+    return segment
