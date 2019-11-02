@@ -16,9 +16,10 @@ def train(net, args):
     valPercent = args.valPercent
     batchSize = args.batchSize
 
-    dirImg = 'data/images/'
-    dirMasks = 'data/masks/'
+    dirImg = os.path.join(os.getcwd(), '../data/images/')
+    dirMasks = os.path.join(os.getcwd(), '../data/masks/')
 
+    # get image ids
     ids = getIds(dirImg)
 
     iddataset = splitTrainVal(ids, valPercent)
@@ -34,8 +35,9 @@ def train(net, args):
 
     # TODO understand and use DataParallel
 
-    # move network to gpu
-    net = net.cuda()
+    # move network to device
+    device = torch.device('cuda:0') if torch.cuda.is_available() else torch.device('cpu')
+    net = net.to(device)
 
     # used to update network weights based on training data
     optimizer = optim.SGD(net.parameters(), lr=lr, momentum=0.9, weight_decay=0.0005)
@@ -66,11 +68,11 @@ def train(net, args):
             trueMasks = np.array([i[1] for i in b])
 
             # load images and masks onto GPU
-            imgs.cuda()
-            trueMasks.cuda()
+            imgs = torch.tensor(imgs).to(device)
+            trueMasks = torch.tensor(trueMasks).to(device)
 
             # predict masks
-            predMasks = net(imgs)
+            predMasks = net.forward(imgs)
 
             # flatten matrices
             masksProbFlat = predMasks.view(-1)
@@ -104,7 +106,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--lr", "-learning_rate", dest='lr', type=float, help="Learning rate", default=1e-4)
     parser.add_argument("--e","-epochs", dest='epochs', type=int, help="Epochs to train model", default=80)
-    parser.add_argument("--s","-scale", dest='scale', type=float, help="Scale factor for tiles", default=0.5)
+    parser.add_argument("--s","-scale", dest='scale', type=float, help="Scale factor for tiles", default=1.0)
     parser.add_argument("--vp", "-val_percent", dest='valPercent', type=float, help="Percentage of images to use for validation", default=0.10)
     parser.add_argument("--bs", "-batch_size", dest='batchSize', type=int, help="Number of images to train on at a time", default=1)
 

@@ -9,7 +9,7 @@ def getIds(dir):
     :arg dir: path to img dir
     :return: list of image file names without extension
     """
-    return (i[:-4] for i in os.listdir(dir))
+    return ([i[:-3] for i in os.listdir(dir)])
 
 def splitTrainVal(dataset, valPercent=0.05):
     """
@@ -22,6 +22,10 @@ def splitTrainVal(dataset, valPercent=0.05):
     dataset = list(dataset)
     length = len(dataset)
     n = int(length * valPercent)
+
+    # default images, one for training the other for validation
+    if n == 0:
+        n = -1
 
     # shuffle dataset for randomness
     random.shuffle(dataset)

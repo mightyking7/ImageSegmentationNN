@@ -18,7 +18,7 @@ Models that make up Unet
 
 import torch
 import torch.nn as nn
-import torch.functional as F
+import torch.nn.functional as F
 
 class DoubleConv(nn.Module):
 
@@ -55,20 +55,17 @@ class DownConv(nn.Module):
 
 class UpConv(nn.Module):
 
-    def __init__(self, inChannles, outChannels, bilinear=True):
+    def __init__(self, inChannles, outChannels):
         super(UpConv, self).__init__()
 
-        if bilinear:
-            self.up = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True)
-        else:
-            self.up = nn.ConvTranspose2d(inChannles // 2, outChannels // 2, 2, stride=2)
+        self.up = nn.Sequential(nn.Upsample(scale_factor=2, mode='bilinear', align_corners=True),
+                                nn.Conv2d(inChannles, outChannels, 2, stride=2))
 
         self.conv = DoubleConv(inChannles, outChannels)
 
     def forward(self, x1, x2):
         x1 = self.up(x1)
 
-        # input is CHW
         diffY = x2.size()[2] - x1.size()[2]
         diffX = x2.size()[3] - x1.size()[3]
 
@@ -85,6 +82,6 @@ class OutConv(nn.Module):
         super(OutConv, self).__init__()
         self.conv = nn.Conv2d(inChannels, outChannels, 1)
 
-    def foward(self, x):
-        return OutConv(x)
+    def forward(self, x):
+        return self.conv(x)
 

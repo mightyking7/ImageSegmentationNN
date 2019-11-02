@@ -10,13 +10,13 @@ class UNet(nn.Module):
         self.down2 = DownConv(128, 256)
         self.down3 = DownConv(256, 512)
         self.down4 = DownConv(512, 1024)
-        self.up1 = UpConv(1024, 256)
-        self.up2 = UpConv(512, 128)
-        self.up3 = UpConv(256, 64)
+        self.up1 = UpConv(1024, 512)
+        self.up2 = UpConv(512, 256)
+        self.up3 = UpConv(256, 128)
         self.up4 = UpConv(128, 64)
         self.outlayer = OutConv(64, classes)
 
-    def foward(self, x):
+    def forward(self, x):
         x1 = self.inlayer(x)
         x2 = self.down1(x1)
         x3 = self.down2(x2)

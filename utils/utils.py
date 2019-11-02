@@ -13,7 +13,7 @@ def normalizeImgs(x):
     :param x: 3 dimensional numpy array with image pixels
     :return: normalized pixel values
     """
-    return x / 255
+    return x / 255.0
 
 def getSquare(img):
     """
@@ -56,17 +56,17 @@ def cropImg(img, height=None):
     img = img.crop((0, diff // 2, w, h - diff // 2))
     return np.array(img, dtype=np.float32)
 
-def batch(iterable, batchSize):
+def batch(zippedImageMasks, batchSize):
     """
     Generator that returns images from a list
-    :param iterable: list of images
+    :param zippedImageMasks: zipped numpy arrays with image and image mask
     :param batchSize: number of images to return at once
-    :return: list of images of length batchSize
+    :return: list of images and imageMasks pairs of length batchSize
     """
 
     imgs = []
 
-    for i, img in enumerate(iterable):
+    for i, img in enumerate(zippedImageMasks):
         imgs.append(img)
 
         if (i + 1 % batchSize) == 0:
